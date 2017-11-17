@@ -23,8 +23,11 @@ class Persons extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     console.log('[UPDATE Persons.js] inside shouldComponentUpdate', nextProps, nextState)
-    //Checks to see if nextprop is different from current prop
-    return nextProps.persons !== this.props.persons;
+    // //Checks to see if nextprop is different from current prop
+    return nextProps.persons !== this.props.persons || 
+    nextProps.changed !== this.props.changed || 
+    nextProps.clicked !== this.props.clicked;
+    // return true;
   }
 
   componentWillUpdate(nextProps, nextState) {

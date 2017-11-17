@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
-import Cockpit from '../Cockpit/Cockpit'
+import Cockpit from '../Cockpit/Cockpit';
+import withClass from '../HOC/withClass';
+import Aux from '../HOC/Aux';
 
 class App extends Component {
 
@@ -27,6 +29,28 @@ class App extends Component {
   componentDidMount() {
     console.log('[app.js] Inside componentDidMount()')
   }
+
+  // UPDATE METHODS
+  componentWillReceiveProps(nextProps) {
+    console.log('[UPDATE App.js] Inside componentWillReceiveProps', nextProps)
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('[UPDATE App.js] inside shouldComponentUpdate', nextProps, nextState)
+    //Checks to see if nextprop is different from current prop
+    // return true;
+    return nextState.persons !== this.state.persons || 
+    nextState.showPersons !== this.state.showPersons;
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log('[Update App.js] inside componentWillUpdate', nextProps, nextState)
+  }
+
+  componentDidUpdate() {
+    console.log('[Update App.js] inside componentDidUpdate')
+  }
+
   state = {
     persons: [
       { id: '1213', name: 'Max', age: 28 },
@@ -80,16 +104,17 @@ class App extends Component {
     }
 
     return (
-        <div className={classes.App}>
+      <Aux>
+        <button onClick={() => {this.setState({showPersons:true})}}>Show Persons</button>
           <Cockpit
             appTitle={this.props.title}
             persons={this.state.persons}
             showPersons={this.state.showPersons}
             clicked={this.togglePersonsHandler} />
           {persons}
-        </div>
+      </ Aux>
     );
   }
 }
 
-export default App;
+export default withClass(App, classes.App);
