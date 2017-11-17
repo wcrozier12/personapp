@@ -4,6 +4,29 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../Cockpit/Cockpit'
 
 class App extends Component {
+
+  constructor(props) {
+    super(props)
+    console.log('[app.js] Inside Constructor', props)
+    // this is the same as declaring state below, but an older method
+    // this.state = {
+    //   persons: [
+    //     { id: '1213', name: 'Max', age: 28 },
+    //     { id: 'awd', name: 'Manu', age: 29 },
+    //     { id: 'awaa', name: 'Stephanie', age: 26 }
+    //   ],
+    //   otherState: 'some other value',
+    //   showPersons: false
+    // }
+  }
+  
+  componentWillMount() {
+    console.log('[app.js] Inside componentWillMount()')
+  }
+
+  componentDidMount() {
+    console.log('[app.js] Inside componentDidMount()')
+  }
   state = {
     persons: [
       { id: '1213', name: 'Max', age: 28 },
@@ -48,6 +71,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('[app.js] inside render()')
     let persons = null;
     if (this.state.showPersons) {
       persons = <Persons persons={this.state.persons}
